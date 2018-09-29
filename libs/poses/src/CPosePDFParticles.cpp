@@ -282,6 +282,11 @@ void CPosePDFParticles::drawSingleSample(CPose2D& outPart) const
 {
 	const double uni = getRandomGenerator().drawUniform(0.0, 0.9999);
 	double cum = 0;
+	
+	//Normalize weight to [0,1]
+	double sum_weight(0.0);
+	for(auto particle : m_particles)
+		sum_weight += exp(particle.log_w);
 
 	for (auto& p : m_particles)
 	{
